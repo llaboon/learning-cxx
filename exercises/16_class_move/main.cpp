@@ -1,5 +1,6 @@
 #include "../exercise.h"
 #include<utility>
+#include<string.h>
 // READ: 左值右值（概念）<https://learn.microsoft.com/zh-cn/cpp/c-language/l-value-and-r-value-expressions?view=msvc-170>
 // READ: 左值右值（细节）<https://zh.cppreference.com/w/cpp/language/value_category>
 // READ: 关于移动语义 <https://learn.microsoft.com/zh-cn/cpp/cpp/rvalue-reference-declarator-amp-amp?view=msvc-170#move-semantics>
@@ -21,7 +22,7 @@ public:
 
     // TODO: 实现移动构造器
     DynFibonacci(DynFibonacci &others):cache(new size_t[others.cached]),cached(others.cached){
-        std::memcpy(cache, others.cache, cached * sizeof(size_t));
+        memcpy(cache, others.cache, cached * sizeof(size_t));
         //others.cached=0;
         //delete[] others.cache;
     }

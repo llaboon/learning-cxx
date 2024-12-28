@@ -58,16 +58,16 @@ int main(int argc, char **argv) {
     std::vector<const char *> answers[]{
         {"fd"},
         // TODO: 分析 problems[1] 中资源的生命周期，将记录填入 `std::vector`
-        {"ffr","d"},
-        {"r", "d","d"},
+        {"d","ffr"},
+        {"d", "d","r"},
     };
-    /*for (auto i = 0; i < 3; ++i) {
+    for (auto i = 0; i < 3; ++i) {
         std::cout<<(problems[i].size() == answers[i].size());
         for (auto j = 0; j < problems[i].size(); ++j) {
             std::cout<<(strcmp(problems[i][j].c_str(), answers[i][j]) == 0)<<std::endl;
             std::cout<<problems[i][j].c_str()<<" "<<answers[i][j]<<std::endl;
         }
-    }*/
+    }
     //std::cout<<"hello";
     //std::cout<<problems[0].size()<<std::endl<<answers[0].size()<<problems[1].size()<<answers[1].size()<<problems[2].size()<<answers[2].size();
     // ---- 不要修改以下代码 ----

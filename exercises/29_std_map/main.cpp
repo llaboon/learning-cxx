@@ -1,4 +1,4 @@
-﻿#include "../exercise.h"
+#include "../exercise.h"
 #include <map>
 
 // READ: `std::map` <https://zh.cppreference.com/w/cpp/container/map>

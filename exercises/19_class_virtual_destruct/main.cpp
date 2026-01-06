@@ -5,7 +5,7 @@
 
 struct A {
     // TODO: 正确初始化静态字段
-    static int num_a ;
+    static int num_a;
 
     A() {
         ++num_a;
@@ -18,14 +18,15 @@ struct A {
         return 'A';
     }
 };
+int A::num_a=0;
 struct B final : public A {
     // TODO: 正确初始化静态字段
-    static int num_b ;
+    static int num_b;
 
     B() {
         ++num_b;
     }
-    virtual ~B() {
+    ~B() {
         --num_b;
     }
 
@@ -33,7 +34,6 @@ struct B final : public A {
         return 'B';
     }
 };
-int A::num_a=0;
 int B::num_b=0;
 int main(int argc, char **argv) {
     auto a = new A;
@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
     ASSERT(ab->name() == 'B', "Fill in the correct value for ab->name()");
 
     // TODO: 基类指针无法随意转换为派生类指针，补全正确的转换语句
-    B &bb = (B &)ab;
+    B &bb = dynamic_cast<B &>(*ab);
     ASSERT(bb.name() == 'B', "Fill in the correct value for bb->name()");
 
     // TODO: ---- 以下代码不要修改，通过改正类定义解决编译问题 ----

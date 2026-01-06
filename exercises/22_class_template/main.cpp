@@ -1,5 +1,5 @@
 ﻿#include "../exercise.h"
-#include<string.h>
+#include <cstring>
 // READ: 类模板 <https://zh.cppreference.com/w/cpp/language/class_template>
 
 template<class T>
@@ -10,13 +10,12 @@ struct Tensor4D {
     Tensor4D(unsigned int const shape_[4], T const *data_) {
         unsigned int size = 1;
         // TODO: 填入正确的 shape 并计算 size
-        for(auto i=0u;i<4;i++)
-        {
+        for(int i=0;i<4;i++){
             shape[i]=shape_[i];
-            size*=shape[i];
+            size *=shape[i];
         }
         data = new T[size];
-        memcpy(data, data_, size * sizeof(T));
+        std::memcpy(data, data_, size * sizeof(T));
     }
     ~Tensor4D() {
         delete[] data;
@@ -33,26 +32,17 @@ struct Tensor4D {
     // 则 `this` 与 `others` 相加时，3 个形状为 `[1, 2, 1, 4]` 的子张量各自与 `others` 对应项相加。
     Tensor4D &operator+=(Tensor4D const &others) {
         // TODO: 实现单向广播的加法
-        bool broadcast[4];
-        for(auto i=0u;i<4;i++){
-            if(broadcast[i]=shape[i]!=others.shape[i])
-            ASSERT(others.shape[i]==1,"!");
-        }
-        auto dst=this->data;
-        auto src=others.data;
-        T *marks[4]{src};
-        for(auto i0=0u;i0<shape[0];++i0){
-            if(broadcast[0])src=marks[0];
-            marks[1]=src;
-            for(auto i1=0u;i1<shape[1];++i1){
-                if(broadcast[1])src=marks[1];
-                marks[2]=src;
-                for(auto i2=0u;i2<shape[2];++i2){
-                    if(broadcast[2])src=marks[2];
-                    marks[3]=src;
-                    for(auto i3=0u;i3<shape[3];i3++){
-                        if(broadcast[3])src=marks[3];
-                        *dst++ +=*src++;
+        for(unsigned int i=0;i<shape[0];i++){
+            unsigned int i_others=others.shape[0]==1?0:i;
+            for(unsigned int j=0;j<shape[1];++j){
+                unsigned int j_others=others.shape[1]==1?0:j;
+                for(unsigned int k=0;k<shape[2];++k){
+                    unsigned int k_others=others.shape[2]==1?0:k;
+                    for(unsigned int l=0;l<shape[3];++l){
+                        unsigned int l_others=others.shape[3]==1?0:l;
+                        unsigned int idx=((i*shape[1]+j)*shape[2]+k)*shape[3]+l;
+                        unsigned int idx_others=((i_others*others.shape[1]+j_others)*others.shape[2]+k_others)*others.shape[3]+l_others;
+                        data[idx]+=others.data[idx_others];
                     }
                 }
             }

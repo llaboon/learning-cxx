@@ -1,4 +1,4 @@
-﻿#include "../exercise.h"
+#include "../exercise.h"
 
 // READ: 数组 <https://zh.cppreference.com/w/cpp/language/array>
 
